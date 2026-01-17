@@ -1,0 +1,5 @@
+class CategoriesServices {
+    constructor(parameters) {
+        
+    }
+}
