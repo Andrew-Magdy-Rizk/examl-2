@@ -71,6 +71,7 @@ export default class Router {
 
 
     }
+
     #toProduct() {
         console.log("Products");
         this.#productPage.classList.remove("hidden");
@@ -79,8 +80,8 @@ export default class Router {
         this.#foodlogPage.classList.add("hidden");
         this.#headTitle.innerHTML = 'Product Scanner';
         this.#headDescription.innerHTML = 'Search packaged foods by name or barcode';
-
     }
+
     #toFoodLog() {
         console.log("FoodLog");
         this.#foodlogPage.classList.remove("hidden");
@@ -94,6 +95,7 @@ export default class Router {
     #toLoading() {
         this.#loadingPage.classList.toggle("loading");
     }
+
     #toNotFound() {
         console.log("404");
 
