@@ -1,35 +1,35 @@
 import { MealsApi } from "../api/meals.api.js";
+import Router from "../route.js";
 
 export default class Home {
-    constructor({ categories, areas, meals }) {
-        this.categories = categories;
-        this.areas = areas;
-        this.meals = meals;
-        this.displayMeals();
-        this.changeView();
-        this.displayCategories();
-        this.getByMealsCategory();
-        this.displayAreas();
-        this.getByMealsArea();
-        this.search();
-        console.log(this.meals);
-        
-    }
-    #mealsContainer = document.getElementById("recipes-grid");
-    #categoryContainer = document.getElementById("categories-grid");
-    #areasContainer = document.getElementById("search-filters-areas");
+  constructor({ categories, areas, meals }) {
+    this.categories = categories;
+    this.areas = areas;
+    this.meals = meals;
+    this.displayMeals();
+    this.changeView();
+    this.displayCategories();
+    this.getMealsByCategory();
+    this.getMealsByArea();
+    this.displayAreas();
+    this.search();
+
+  }
+  #mealsContainer = document.getElementById("recipes-grid");
+  #categoryContainer = document.getElementById("categories-grid");
+  #areasContainer = document.getElementById("search-filters-areas");
 
 
 
-    displayMeals() {
-        const countMeals = document.getElementById("recipes-count");
-        countMeals.innerHTML = `Showing ${this.meals.length} recipes`
-        let islist = this.#mealsContainer.classList.contains("grid-cols-2");
+  displayMeals() {
+    const countMeals = document.getElementById("recipes-count");
+    countMeals.innerHTML = `Showing ${this.meals.length} recipes`
+    let islist = this.#mealsContainer.classList.contains("grid-cols-2");
 
-        let cartona = ``;
+    let cartona = ``;
 
-        this.meals.map((meal) => {
-            cartona += `
+    this.meals.map((meal) => {
+      cartona += `
             <div
             class="recipe-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all cursor-pointer group ${islist ? "flex flex-row h-40" : ""}"
             data-meal-id="${meal.id}">
@@ -67,37 +67,40 @@ export default class Home {
             </div>
           </div>
           `
-        });
-        this.#mealsContainer.innerHTML = cartona
+    });
+    this.#mealsContainer.innerHTML = cartona
 
-    }
-    changeView() {
-        const btnViewGrid = document.getElementById("grid-view-btn");
-        const btnViewList = document.getElementById("list-view-btn");
-        btnViewGrid.addEventListener("click", () => {
-            btnViewList.classList.remove("bg-white", "rounded-md", "shadow-sm");
-            btnViewGrid.classList.add("bg-white", "rounded-md", "shadow-sm");
-            this.#mealsContainer.classList.replace("grid-cols-2", "grid-cols-4");
-            this.displayMeals();
-
-        })
-
-        btnViewList.addEventListener("click", () => {
-            btnViewGrid.classList.remove("bg-white", "rounded-md", "shadow-sm");
-            btnViewList.classList.add("bg-white", "rounded-md", "shadow-sm");
-            this.#mealsContainer.classList.replace("grid-cols-4", "grid-cols-2")
-            this.displayMeals();
-
-        })
-
-    }
+    this.getDetailsMeal();
 
 
-    displayCategories() {
-        let cartona = ``;
+  }
 
-        this.categories.map((category) => {
-            cartona += `
+  changeView() {
+    const btnViewGrid = document.getElementById("grid-view-btn");
+    const btnViewList = document.getElementById("list-view-btn");
+    btnViewGrid.addEventListener("click", () => {
+      btnViewList.classList.remove("bg-white", "rounded-md", "shadow-sm");
+      btnViewGrid.classList.add("bg-white", "rounded-md", "shadow-sm");
+      this.#mealsContainer.classList.replace("grid-cols-2", "grid-cols-4");
+      this.displayMeals();
+
+    })
+
+    btnViewList.addEventListener("click", () => {
+      btnViewGrid.classList.remove("bg-white", "rounded-md", "shadow-sm");
+      btnViewList.classList.add("bg-white", "rounded-md", "shadow-sm");
+      this.#mealsContainer.classList.replace("grid-cols-4", "grid-cols-2")
+      this.displayMeals();
+
+    })
+
+  }
+
+  displayCategories() {
+    let cartona = ``;
+
+    this.categories.map((category) => {
+      cartona += `
             <div
             class="category-card bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl p-3 border border-emerald-200 hover:border-emerald-400 hover:shadow-md cursor-pointer transition-all group"
             data-category="${category.name}">
@@ -113,92 +116,107 @@ export default class Home {
             </div>
           </div>
             `
-        })
+    })
 
-        this.#categoryContainer.innerHTML = cartona;
-    }
+    this.#categoryContainer.innerHTML = cartona;
+  }
 
-    displayAreas() {
-        let cartona = `
+  displayAreas() {
+    let cartona = `
         <button data-area=""
             class="px-4 py-2 bg-emerald-600 text-white rounded-full font-medium text-sm whitespace-nowrap hover:bg-emerald-700 transition-all">
             All Recipes
           </button>
           `;
 
-        this.areas.map((area) => {
-            cartona += `
+    this.areas.map((area) => {
+      cartona += `
             <button
             data-area="${area.name}"
             class="px-4 py-2 bg-emerald-600 text-white rounded-full font-medium text-sm whitespace-nowrap hover:bg-emerald-700 transition-all">
             ${area.name}
           </button>
             `
-        })
+    })
 
-        this.#areasContainer.innerHTML = cartona;
-    }
+    this.#areasContainer.innerHTML = cartona;
+  }
 
-    getByMealsCategory() {
-        this.#categoryContainer.addEventListener("click", async (e) => {
-            const card = e.target.closest("[data-category]");
-            if (!card) return;
-            const categoryName = card.dataset.category;
+  getMealsByCategory() {
+    this.#categoryContainer.addEventListener("click", async (e) => {
+      const card = e.target.closest("[data-category]");
+      if (!card) return;
+      const categoryName = card.dataset.category;
 
-            const mealsApi = new MealsApi();
+      const mealsApi = new MealsApi();
 
-            this.#mealsContainer.innerHTML = `<div class="flex items-center justify-center py-12 w-full">
+      this.#mealsContainer.innerHTML = `<div class="absolute flex items-center justify-center py-12 w-full">
                 <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
             </div>`;
 
-            const data = await mealsApi.getFilterMeals(categoryName);
-            this.meals = data;
-            this.displayMeals();
+      const data = await mealsApi.getFilterMeals(categoryName);
+      this.meals = data;
+      this.displayMeals();
 
-        })
+    })
 
-    }
+  }
 
-    getByMealsArea() {
-        this.#areasContainer.addEventListener("click", async (e) => {
-            const card = e.target.closest("[data-area]");
-            if (!card) return;
-            const areaName = card.dataset.area;
+  getMealsByArea() {
+    this.#areasContainer.addEventListener("click", async (e) => {
+      const card = e.target.closest("[data-area]");
+      if (!card) return;
+      const areaName = card.dataset.area;
 
 
-            const mealsApi = new MealsApi();
+      const mealsApi = new MealsApi();
 
-            this.#mealsContainer.innerHTML = `<div class="flex items-center justify-center py-12 w-full">
+      this.#mealsContainer.innerHTML = `<div class="absolute flex items-center justify-center py-12 w-full">
                 <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
             </div>`;
 
-            const data = await mealsApi.getFilterMeals(areaName ? undefined : "chicken", areaName);
+      const data = await mealsApi.getFilterMeals(areaName ? undefined : "chicken", areaName);
 
-            this.meals = data;
-            this.displayMeals();
+      this.meals = data;
+      this.displayMeals();
 
-        })
+    })
 
-    }
-
-
-
-    search() {
-        const searchInput = document.getElementById("search-input");
-        searchInput.addEventListener("keyup", async (e) => {
-            const meals = new MealsApi();
-            const searchTerm = e.target.value.toLowerCase();
-            console.log(searchTerm);
-            
-
-            const data = await meals.getMeals(searchTerm);
-            
-            this.meals = data;
-
-            this.displayMeals();
-        })
-    }
+  }
 
 
+
+  search() {
+    const searchInput = document.getElementById("search-input");
+    searchInput.addEventListener("keyup", async (e) => {
+      const meals = new MealsApi();
+      const searchTerm = e.target.value.toLowerCase();
+      console.log(searchTerm);
+
+
+      const data = await meals.getMeals(searchTerm);
+
+      this.meals = data;
+
+      this.displayMeals();
+    })
+  }
+
+  getDetailsMeal() {
+    this.#mealsContainer.addEventListener("click", (e) => {
+  const card = e.target.closest(".recipe-card");
+
+  if (!card) return; // لو الضغط كان بره الكارت
+
+  const mealId = card.dataset.mealId;
+
+  console.log("Clicked meal id:", mealId);
+
+  const router = new Router();
+  // هنا بقى اعمل اللي انت عايزه
+  router.navigation(`/meal/${mealId}`);
+});
+
+  }
 
 }

@@ -12,6 +12,11 @@ export default class Router {
     #headDescription = document.getElementById("head-title").children[1];
     navigation(route) {
 
+        if (/^\/meal\/\w+/.test(route)) {
+            return this.#toMealDetails();
+            console.log("meal Details");
+        }
+
         switch (route) {
             case "/home":
                 // history.pushState({}, "", route);
@@ -24,10 +29,6 @@ export default class Router {
             case "/foodlog":
                 // history.pushState({}, "", route);
                 this.#toFoodLog()
-                break;
-            case /^\/products\/\w+/.test(route):
-                // history.pushState({}, "", route);
-                this.#toMealDetails()
                 break;
             default:
                 this.#toNotFound()
@@ -46,7 +47,7 @@ export default class Router {
         this.#mealDetailsPage.classList.add("hidden");
         this.#productPage.classList.add("hidden");
         this.#foodlogPage.classList.add("hidden");
-        
+
         this.#headTitle.innerHTML = 'Meals & Recipes';
         this.#headDescription.innerHTML = 'Discover delicious and nutritious recipes tailored for you';
         new Home({ categories, areas, meals });
@@ -56,14 +57,19 @@ export default class Router {
 
     #toMealDetails() {
         console.log("meal Detials");
+        const goBack = document.getElementById("back-to-meals-btn");
+        goBack.addEventListener("click", () => {
+            this.#toHome();
+        })
+
         this.#mealDetailsPage.classList.remove("hidden");
         this.#homePage.classList.add("hidden");
         this.#productPage.classList.add("hidden");
         this.#foodlogPage.classList.add("hidden");
         this.#headTitle.innerHTML = 'Recipe Details';
         this.#headDescription.innerHTML = 'View full recipe information and nutrition facts';
-        
-        
+
+
     }
     #toProduct() {
         console.log("Products");
@@ -73,7 +79,7 @@ export default class Router {
         this.#foodlogPage.classList.add("hidden");
         this.#headTitle.innerHTML = 'Product Scanner';
         this.#headDescription.innerHTML = 'Search packaged foods by name or barcode';
-        
+
     }
     #toFoodLog() {
         console.log("FoodLog");
