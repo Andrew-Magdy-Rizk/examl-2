@@ -69,7 +69,7 @@
         </p>
         <ul id="links" class="space-y-1">
           <li>
-            <a class="nav-link flex items-center gap-3 px-3 py-2.5 bg-emerald-50 text-emerald-700 rounded-lg transition-all"
+            <a class="nav-link flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 bg-emerald-50 text-emerald-700 rounded-lg transition-all"
               href="/home">
               <i class="fa-solid fa-utensils w-5"></i>
               <span class="font-semibold">Meals & Recipes</span>
@@ -128,126 +128,126 @@
     </header>
 
     <section id="home-page">
-    <section id="search-filters-section" class="px-8 py-6 bg-white border-b border-gray-200">
-      <div class="mx-auto">
-        <div class="mb-6">
-          <div class="relative w-full">
-            <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-            <input id="search-input" type="text" placeholder="Search recipes by name, ingredient, or cuisine..."
-              class="w-full pl-12 pr-4 py-3.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-sm" />
-          </div>
-        </div>
-
-        <div id="search-filters-areas" class="flex items-center gap-3 overflow-x-auto pb-2">
-          <button
-            class="px-4 py-2 bg-emerald-600 text-white rounded-full font-medium text-sm whitespace-nowrap hover:bg-emerald-700 transition-all">
-            All Recipes
-          </button>
-          <button
-            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full font-medium text-sm whitespace-nowrap hover:bg-gray-200 transition-all">
-            Egyptain
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <section id="meal-categories-section" class="px-8 py-6 bg-white">
-      <div>
-        <div class="flex items-center justify-between mb-4">
-          <div>
-            <h2 class="text-xl font-bold text-gray-900">
-              Browse by Meal Type
-            </h2>
-            <p class="text-xs text-gray-500 mt-0.5">
-              Find the perfect recipe for any time of day
-            </p>
-          </div>
-          <button class="text-emerald-600 font-medium text-sm hover:text-emerald-700 flex items-center gap-1">
-            View All <i class="fa-solid fa-chevron-right text-xs"></i>
-          </button>
-        </div>
-
-        <div id="categories-grid" class="grid grid-cols-6 gap-3">
-          <!-- Categories will be loaded here by JavaScript -->
-          <div
-            class="category-card bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl p-3 border border-emerald-200 hover:border-emerald-400 hover:shadow-md cursor-pointer transition-all group"
-            data-category="Beef">
-            <div class="flex items-center gap-2.5">
-              <div
-                class="text-white w-9 h-9 bg-gradient-to-br from-emerald-400 to-green-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
-                <i class="fa-solid fa-drumstick-bite"></i>
-              </div>
-              <div>
-                <h3 class="text-sm font-bold text-gray-900">Beef</h3>
-              </div>
+      <section id="search-filters-section" class="px-8 py-6 bg-white border-b border-gray-200">
+        <div class="mx-auto">
+          <div class="mb-6">
+            <div class="relative w-full">
+              <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+              <input id="search-input" type="text" placeholder="Search recipes by name, ingredient, or cuisine..."
+                class="w-full pl-12 pr-4 py-3.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-sm" />
             </div>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <section id="all-recipes-section" class="px-8 py-8 bg-gray-50">
-      <div>
-        <div class="flex items-center justify-between mb-6">
-          <div>
-            <h2 class="text-2xl font-bold text-gray-900">All Recipes</h2>
-            <p id="recipes-count" class="text-sm text-gray-600 mt-1">
-              Showing 25 recipes
-            </p>
-          </div>
-          <div class="flex items-center gap-3">
-            <div class="flex bg-gray-200 rounded-lg p-1" id="view-toggle">
-              <button id="grid-view-btn" class="px-3 py-1.5 bg-white rounded-md shadow-sm" title="Grid View">
-                <i class="fa-solid fa-table-cells text-gray-700"></i>
-              </button>
-              <button id="list-view-btn" class="px-3 py-1.5" title="List View">
-                <i class="fa-solid fa-list text-gray-500"></i>
-              </button>
-            </div>
+          <div id="search-filters-areas" class="flex items-center gap-3 overflow-x-auto pb-2">
+            <button
+              class="px-4 py-2 bg-emerald-600 text-white rounded-full font-medium text-sm whitespace-nowrap hover:bg-emerald-700 transition-all">
+              All Recipes
+            </button>
+            <button
+              class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full font-medium text-sm whitespace-nowrap hover:bg-gray-200 transition-all">
+              Egyptain
+            </button>
           </div>
         </div>
+      </section>
 
-        <div id="recipes-grid" class="relative grid grid-cols-4 gap-5">
-          <!-- Recipes will be loaded here by JavaScript -->
-          <div
-            class="recipe-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all cursor-pointer group"
-            data-meal-id="52772">
-            <div class="relative h-48 overflow-hidden">
-              <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                src="https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg" alt="Teriyaki Chicken Casserole"
-                loading="lazy" />
-              <div class="absolute bottom-3 left-3 flex gap-2">
-                <span class="px-2 py-1 bg-white/90 backdrop-blur-sm text-xs font-semibold rounded-full text-gray-700">
-                  Chicken
-                </span>
-                <span class="px-2 py-1 bg-emerald-500 text-xs font-semibold rounded-full text-white">
-                  Japanese
-                </span>
-              </div>
-            </div>
-            <div class="p-4">
-              <h3
-                class="text-base font-bold text-gray-900 mb-1 group-hover:text-emerald-600 transition-colors line-clamp-1">
-                Teriyaki Chicken Casserole
-              </h3>
-              <p class="text-xs text-gray-600 mb-3 line-clamp-2">
-                Delicious recipe to try!
+      <section id="meal-categories-section" class="px-8 py-6 bg-white">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h2 class="text-xl font-bold text-gray-900">
+                Browse by Meal Type
+              </h2>
+              <p class="text-xs text-gray-500 mt-0.5">
+                Find the perfect recipe for any time of day
               </p>
-              <div class="flex items-center justify-between text-xs">
-                <span class="font-semibold text-gray-900">
-                  <i class="fa-solid fa-utensils text-emerald-600 mr-1"></i>
-                  Chicken
-                </span>
-                <span class="font-semibold text-gray-500">
-                  <i class="fa-solid fa-globe text-blue-500 mr-1"></i>
-                  Japanese
-                </span>
+            </div>
+            <button class="text-emerald-600 font-medium text-sm hover:text-emerald-700 flex items-center gap-1">
+              View All <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+          </div>
+
+          <div id="categories-grid" class="grid grid-cols-6 gap-3">
+            <!-- Categories will be loaded here by JavaScript -->
+            <div
+              class="category-card bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl p-3 border border-emerald-200 hover:border-emerald-400 hover:shadow-md cursor-pointer transition-all group"
+              data-category="Beef">
+              <div class="flex items-center gap-2.5">
+                <div
+                  class="text-white w-9 h-9 bg-gradient-to-br from-emerald-400 to-green-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                  <i class="fa-solid fa-drumstick-bite"></i>
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-gray-900">Beef</h3>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section id="all-recipes-section" class="px-8 py-8 bg-gray-50">
+        <div>
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900">All Recipes</h2>
+              <p id="recipes-count" class="text-sm text-gray-600 mt-1">
+                Showing 25 recipes
+              </p>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="flex bg-gray-200 rounded-lg p-1" id="view-toggle">
+                <button id="grid-view-btn" class="px-3 py-1.5 bg-white rounded-md shadow-sm" title="Grid View">
+                  <i class="fa-solid fa-table-cells text-gray-700"></i>
+                </button>
+                <button id="list-view-btn" class="px-3 py-1.5" title="List View">
+                  <i class="fa-solid fa-list text-gray-500"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div id="recipes-grid" class="relative grid grid-cols-4 gap-5">
+            <!-- Recipes will be loaded here by JavaScript -->
+            <div
+              class="recipe-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all cursor-pointer group"
+              data-meal-id="52772">
+              <div class="relative h-48 overflow-hidden">
+                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  src="https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg"
+                  alt="Teriyaki Chicken Casserole" loading="lazy" />
+                <div class="absolute bottom-3 left-3 flex gap-2">
+                  <span class="px-2 py-1 bg-white/90 backdrop-blur-sm text-xs font-semibold rounded-full text-gray-700">
+                    Chicken
+                  </span>
+                  <span class="px-2 py-1 bg-emerald-500 text-xs font-semibold rounded-full text-white">
+                    Japanese
+                  </span>
+                </div>
+              </div>
+              <div class="p-4">
+                <h3
+                  class="text-base font-bold text-gray-900 mb-1 group-hover:text-emerald-600 transition-colors line-clamp-1">
+                  Teriyaki Chicken Casserole
+                </h3>
+                <p class="text-xs text-gray-600 mb-3 line-clamp-2">
+                  Delicious recipe to try!
+                </p>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-semibold text-gray-900">
+                    <i class="fa-solid fa-utensils text-emerald-600 mr-1"></i>
+                    Chicken
+                  </span>
+                  <span class="font-semibold text-gray-500">
+                    <i class="fa-solid fa-globe text-blue-500 mr-1"></i>
+                    Japanese
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </section>
 
     <section id="meal-details" class="hidden px-8 py-8 bg-gray-50">
@@ -386,7 +386,7 @@
                 <i class="fa-solid fa-shoe-prints text-emerald-600"></i>
                 Instructions
               </h2>
-              <div class="space-y-4">
+              <div id="meal-instructions-section" class="space-y-4">
                 <div class="flex gap-4 p-4 rounded-xl hover:bg-gray-50 transition-colors">
                   <div
                     class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold shrink-0">
@@ -467,7 +467,7 @@
           </div>
 
           <!-- Right Column - Nutrition -->
-          <div class="space-y-6">
+          <div id="meal-nutrition-section" class="space-y-6">
             <!-- Nutrition Facts -->
             <div class="bg-white rounded-2xl shadow-lg p-6 sticky top-24">
               <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -691,61 +691,12 @@
           </div>
 
           <div id="products-grid" class="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            <div
-              class="product-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all cursor-pointer group"
-              data-barcode="7613034626844">
-              <div class="relative h-40 bg-gray-100 flex items-center justify-center overflow-hidden">
-                <img class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
-                  src="https://images.openfoodfacts.org/images/products/316/893/015/9742/front_fr.54.400.jpg"
-                  alt="Product Name" loading="lazy" />
-
-                <!-- Nutri-Score Badge -->
-                <div
-                  class="absolute top-2 left-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded uppercase">
-                  Nutri-Score A
-                </div>
-
-                <!-- NOVA Badge -->
-                <div
-                  class="absolute top-2 right-2 bg-lime-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center"
-                  title="NOVA 2">
-                  2
-                </div>
+            <div class="absolute mx-autopy-10 w-full text-center col-span-full">
+              <div>
+                <i class="fa-solid fa-box-open fa-lg"></i>
               </div>
-
-              <div class="p-4">
-                <p class="text-xs text-emerald-600 font-semibold mb-1 truncate">
-                  Brand Name
-                </p>
-                <h3 class="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">
-                  Product Name
-                </h3>
-
-                <div class="flex items-center gap-3 text-xs text-gray-500 mb-3">
-                  <span><i class="fa-solid fa-weight-scale mr-1"></i>250g</span>
-                  <span><i class="fa-solid fa-fire mr-1"></i>350 kcal/100g</span>
-                </div>
-
-                <!-- Mini Nutrition -->
-                <div class="grid grid-cols-4 gap-1 text-center">
-                  <div class="bg-emerald-50 rounded p-1.5">
-                    <p class="text-xs font-bold text-emerald-700">8.5g</p>
-                    <p class="text-[10px] text-gray-500">Protein</p>
-                  </div>
-                  <div class="bg-blue-50 rounded p-1.5">
-                    <p class="text-xs font-bold text-blue-700">45.2g</p>
-                    <p class="text-[10px] text-gray-500">Carbs</p>
-                  </div>
-                  <div class="bg-purple-50 rounded p-1.5">
-                    <p class="text-xs font-bold text-purple-700">12.3g</p>
-                    <p class="text-[10px] text-gray-500">Fat</p>
-                  </div>
-                  <div class="bg-orange-50 rounded p-1.5">
-                    <p class="text-xs font-bold text-orange-700">18.5g</p>
-                    <p class="text-[10px] text-gray-500">Sugar</p>
-                  </div>
-                </div>
-              </div>
+              <h5> No products to display</h5>
+              <p>Search for a product or browse by category</p>
             </div>
           </div>
         </div>

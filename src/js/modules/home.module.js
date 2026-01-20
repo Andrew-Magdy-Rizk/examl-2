@@ -72,7 +72,7 @@ export default class Home {
     });
     this.#mealsContainer.innerHTML = cartona
 
-    
+
 
 
   }
@@ -147,6 +147,7 @@ export default class Home {
   getMealsByCategory() {
     this.#categoryContainer.addEventListener("click", async (e) => {
       const card = e.target.closest("[data-category]");
+
       if (!card) return;
       const categoryName = card.dataset.category;
 
@@ -166,6 +167,7 @@ export default class Home {
   getMealsByArea() {
     this.#areasContainer.addEventListener("click", async (e) => {
       const card = e.target.closest("[data-area]");
+      console.log(card.classList);
       if (!card) return;
       const areaName = card.dataset.area;
 
@@ -188,9 +190,6 @@ export default class Home {
     const searchInput = document.getElementById("search-input");
     searchInput.addEventListener("keyup", async (e) => {
       const searchTerm = e.target.value.toLowerCase();
-      console.log(searchTerm);
-
-
       const data = await this.#mealsApi.getMeals(searchTerm);
 
       this.meals = data;
@@ -200,18 +199,14 @@ export default class Home {
   }
 
   getDetailsMeal() {
-    this.#mealsContainer.addEventListener("click", async(e) => {
+    this.#mealsContainer.addEventListener("click", async (e) => {
       const card = e.target.closest(".recipe-card");
 
-      if (!card) return; // لو الضغط كان بره الكارت
+      if (!card) return;
 
       const mealId = card.dataset.mealId;
       const meal = await this.#mealsApi.getOneMeal(mealId);
-      
 
-      console.log("Clicked meal id:", mealId);
-
-      // هنا بقى اعمل اللي انت عايزه
       this.#router.navigation(`/meal/${mealId}`, meal);
     });
 

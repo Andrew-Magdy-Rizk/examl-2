@@ -15,7 +15,6 @@ export class NutritionApi {
             body: JSON.stringify({ recipeName: name, ingredients })
         });
         const data = await res.json();
-        console.log(data);
         
         return data.data
 

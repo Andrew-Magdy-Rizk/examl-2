@@ -26,9 +26,9 @@ export default class Router {
     }
 
     navigation(route, data) {
-        console.log("nav");
+        history.pushState({}, "", route)
 
-        if (this.#currentRoute === route) return;
+        // if (this.#currentRoute === route) return;
         this.#currentRoute = route;
 
         if (/^\/meal\/\w+/.test(route)) {
@@ -36,7 +36,6 @@ export default class Router {
         }
 
         switch (route) {
-            case "/":
             case "/home":
                 return this.#toHome();
             case "/products":
@@ -75,7 +74,7 @@ export default class Router {
     }
 
     #toMealDetails(data) {
-        console.log(data);
+        window.scrollTo(0, 0);
 
         this.#setHeader(
             "Recipe Details",
@@ -94,8 +93,6 @@ export default class Router {
         );
 
         const categories = await this.#productApi.getCategories()
-
-        console.log(categories);
 
         new Product(categories);
 

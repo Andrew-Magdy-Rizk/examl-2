@@ -15,6 +15,10 @@ export default class App {
         this.#navLinks.forEach((link) => {
             link.addEventListener("click", (e) => {
                 e.preventDefault();
+                this.#navLinks.forEach((link) => link.classList.remove("bg-emerald-50", "text-emerald-700"))
+                link.classList.add("bg-emerald-50", "text-emerald-700");
+                console.log(link);
+                
                 const path = link.getAttribute("href");
                 this.#router.navigation(path);
                 this.sidebartoggle();

@@ -11,7 +11,7 @@ export default class Product {
     this.getProductsByCategory();
     this.search();
     this.searchByBarcode();
-    // this.displayMeals();
+    this.displayNoProduct();
   }
   #productApi = new ProductsApi();
   #router = new Router();
@@ -38,17 +38,17 @@ export default class Product {
 
                 <!-- Nutri-Score Badge -->
                 <div
-                  class="${product.nutritionGrade === "a" ? "bg-green-500": product.nutritionGrade === "b" ? "bg-lime-500" : product.nutritionGrade === "c" ? "bg-yellow-500" : product.nutritionGrade === "d" ? "bg-orange-500" : product.nutritionGrade === "e" ? "bg-red-500" : "bg-gray-400"} absolute top-2 left-2 text-white text-xs font-bold px-2 py-1 rounded uppercase">
+                  class="${product.nutritionGrade === "a" ? "bg-green-500" : product.nutritionGrade === "b" ? "bg-lime-500" : product.nutritionGrade === "c" ? "bg-yellow-500" : product.nutritionGrade === "d" ? "bg-orange-500" : product.nutritionGrade === "e" ? "bg-red-500" : "bg-gray-400"} absolute top-2 left-2 text-white text-xs font-bold px-2 py-1 rounded uppercase">
                   Nutri-Score ${product.nutritionGrade}
                 </div>
 
                 <!-- NOVA Badge -->
                 ${product.novaGroup ? `<div
-                  class="absolute top-2 right-2 ${product.novaGroup == 1 ? "bg-green-500": product.novaGroup == 2 ? "bg-lime-500" : product.novaGroup == 3 ? "bg-orange-500" : "bg-red-500"} text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center"
+                  class="absolute top-2 right-2 ${product.novaGroup == 1 ? "bg-green-500" : product.novaGroup == 2 ? "bg-lime-500" : product.novaGroup == 3 ? "bg-orange-500" : "bg-red-500"} text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center"
                   title="NOVA 2">
                   ${product.novaGroup}
                 </div>`: ""
-                }
+        }
               </div>
 
               <div class="p-4">
@@ -87,7 +87,6 @@ export default class Product {
             </div>
           `
     });
-    console.log(this.#productsContainer);
 
     this.#productsContainer.innerHTML = cartona
 
@@ -96,17 +95,28 @@ export default class Product {
 
   }
 
+  displayNoProduct() {
+    this.#productsContainer.innerHTML = `
+    <div class="absolute text-gray-400 mx-autopy-10 w-full text-center col-span-full py-12">
+              <div class="mb-4">
+                <i class="fa-solid fa-box-open fa-2xl"></i>
+              </div>
+              <h5 class="mb-2 text-lg"> No products to display</h5>
+              <p class="text-sm">Search for a product or browse by category</p>
+            </div>
+    `;
+  }
+
 
   displayCategories() {
     let cartona = ``;
-    console.log("get category");
 
     this.categories.map((category) => {
       cartona += `
             <button
             data-category="${category.name}"
               class="product-category-btn px-4 py-2 bg-emerald-100 text-emerald-700 rounded-lg text-sm font-medium whitespace-nowrap hover:bg-emerald-200 transition-all">
-              <i class="fa-solid fa-cookie mr-1.5"></i>${category.name}
+              <i class="fa-solid fa-utensils mr-1.5"></i>${category.name}
             </button>
             `
     })
@@ -127,7 +137,6 @@ export default class Product {
             </div>`;
 
       const data = await this.#productApi.getProductByCategory(categoryName);
-      console.log("products", data);
 
       this.products = data;
       this.displayProducts();
@@ -143,14 +152,11 @@ export default class Product {
     const searchInput = document.getElementById("product-search-input");
     const searchBtn = document.getElementById("search-product-btn");
     searchBtn.addEventListener("click", async (e) => {
-      console.log(e);
-      console.log(searchInput.value);
       if (!searchInput.value) {
         return;
       }
 
       const searchTerm = searchInput.value.toLowerCase();
-      console.log(searchTerm);
 
 
       const data = await this.#productApi.getProducts(searchTerm);
@@ -160,12 +166,11 @@ export default class Product {
       this.displayProducts();
     })
     searchInput.addEventListener("keydown", async (e) => {
-      if (e.key  !== "Enter") {
+      if (e.key !== "Enter") {
         return;
       }
 
       const searchTerm = searchInput.value.toLowerCase();
-      console.log(searchTerm);
 
 
       const data = await this.#productApi.getProducts(searchTerm);
@@ -175,12 +180,11 @@ export default class Product {
       this.displayProducts();
     })
   }
-  
+
   searchByBarcode() {
     const searchInput = document.getElementById("barcode-input");
     const searchBtn = document.getElementById("lookup-barcode-btn");
     searchBtn.addEventListener("click", async (e) => {
-      console.log(searchInput.value);
       if (!searchInput.value) {
         return;
       }
@@ -188,7 +192,6 @@ export default class Product {
 
 
       const data = await this.#productApi.getProductByCode(barcode);
-      console.log("product", data);
 
       this.products = [data];
 
@@ -202,7 +205,6 @@ export default class Product {
 
 
       const data = await this.#productApi.getProductByCode(barcode);
-      console.log("product", data);
 
       this.products = [data];
 
@@ -210,22 +212,5 @@ export default class Product {
     })
   }
 
-  //   getDetailsMeal() {
-  //     this.#mealsContainer.addEventListener("click", async(e) => {
-  //       const card = e.target.closest(".recipe-card");
-
-  //       if (!card) return; // لو الضغط كان بره الكارت
-
-  //       const mealId = card.dataset.mealId;
-  //       const meal = await this.#mealsApi.getOneMeal(mealId);
-
-
-  //       console.log("Clicked meal id:", mealId);
-
-  //       // هنا بقى اعمل اللي انت عايزه
-  //       this.#router.navigation(`/meal/${mealId}`, meal);
-  //     });
-
-  //   }
 
 }
