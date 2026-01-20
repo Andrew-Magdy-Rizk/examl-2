@@ -5,7 +5,8 @@
  * Import your modules and initialize the app here.
  */
 
-import App from "./app.js";
+import App from "./core/app.js";
+
 
 const app = new App();
 

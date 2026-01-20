@@ -23,8 +23,8 @@ export default class App {
 
         this.#sidebarOpen.addEventListener("click", () => {
             this.sidebartoggle();
-
         })
+
         this.#sidebarClose.addEventListener("click", () => {
             this.sidebartoggle();
         })

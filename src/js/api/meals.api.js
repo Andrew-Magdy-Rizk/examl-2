@@ -34,7 +34,7 @@ export class MealsApi {
         const url = `${environment.baseUrl}/${environment.endPoints.meals}/${id}`;
         const res = await fetch(url);
         const data = await res.json();
-        return data.results
+        return data.result
 
     }
 }

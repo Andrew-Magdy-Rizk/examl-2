@@ -1,5 +1,5 @@
 import { MealsApi } from "../api/meals.api.js";
-import Router from "../route.js";
+import Router from "../core/route.js";
 
 export default class Home {
   constructor({ categories, areas, meals }) {
@@ -9,15 +9,17 @@ export default class Home {
     this.displayMeals();
     this.changeView();
     this.displayCategories();
+    this.displayAreas();
     this.getMealsByCategory();
     this.getMealsByArea();
-    this.displayAreas();
     this.search();
-
+    this.getDetailsMeal();
   }
   #mealsContainer = document.getElementById("recipes-grid");
   #categoryContainer = document.getElementById("categories-grid");
   #areasContainer = document.getElementById("search-filters-areas");
+  #mealsApi = new MealsApi();
+  #router = new Router();
 
 
 
@@ -70,7 +72,7 @@ export default class Home {
     });
     this.#mealsContainer.innerHTML = cartona
 
-    this.getDetailsMeal();
+    
 
 
   }
@@ -124,7 +126,7 @@ export default class Home {
   displayAreas() {
     let cartona = `
         <button data-area=""
-            class="px-4 py-2 bg-emerald-600 text-white rounded-full font-medium text-sm whitespace-nowrap hover:bg-emerald-700 transition-all">
+            class="area-filter-btn px-4 py-2 bg-emerald-600 text-white rounded-full font-medium text-sm whitespace-nowrap hover:bg-emerald-700 transition-all">
             All Recipes
           </button>
           `;
@@ -133,7 +135,7 @@ export default class Home {
       cartona += `
             <button
             data-area="${area.name}"
-            class="px-4 py-2 bg-emerald-600 text-white rounded-full font-medium text-sm whitespace-nowrap hover:bg-emerald-700 transition-all">
+            class="area-filter-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-full font-medium text-sm whitespace-nowrap hover:bg-gray-200 transition-all">
             ${area.name}
           </button>
             `
@@ -148,13 +150,12 @@ export default class Home {
       if (!card) return;
       const categoryName = card.dataset.category;
 
-      const mealsApi = new MealsApi();
 
       this.#mealsContainer.innerHTML = `<div class="absolute flex items-center justify-center py-12 w-full">
                 <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
             </div>`;
 
-      const data = await mealsApi.getFilterMeals(categoryName);
+      const data = await this.#mealsApi.getFilterMeals(categoryName);
       this.meals = data;
       this.displayMeals();
 
@@ -168,14 +169,11 @@ export default class Home {
       if (!card) return;
       const areaName = card.dataset.area;
 
-
-      const mealsApi = new MealsApi();
-
       this.#mealsContainer.innerHTML = `<div class="absolute flex items-center justify-center py-12 w-full">
                 <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
             </div>`;
 
-      const data = await mealsApi.getFilterMeals(areaName ? undefined : "chicken", areaName);
+      const data = await this.#mealsApi.getFilterMeals(areaName ? undefined : "", areaName);
 
       this.meals = data;
       this.displayMeals();
@@ -189,12 +187,11 @@ export default class Home {
   search() {
     const searchInput = document.getElementById("search-input");
     searchInput.addEventListener("keyup", async (e) => {
-      const meals = new MealsApi();
       const searchTerm = e.target.value.toLowerCase();
       console.log(searchTerm);
 
 
-      const data = await meals.getMeals(searchTerm);
+      const data = await this.#mealsApi.getMeals(searchTerm);
 
       this.meals = data;
 
@@ -203,19 +200,20 @@ export default class Home {
   }
 
   getDetailsMeal() {
-    this.#mealsContainer.addEventListener("click", (e) => {
-  const card = e.target.closest(".recipe-card");
+    this.#mealsContainer.addEventListener("click", async(e) => {
+      const card = e.target.closest(".recipe-card");
 
-  if (!card) return; // لو الضغط كان بره الكارت
+      if (!card) return; // لو الضغط كان بره الكارت
 
-  const mealId = card.dataset.mealId;
+      const mealId = card.dataset.mealId;
+      const meal = await this.#mealsApi.getOneMeal(mealId);
+      
 
-  console.log("Clicked meal id:", mealId);
+      console.log("Clicked meal id:", mealId);
 
-  const router = new Router();
-  // هنا بقى اعمل اللي انت عايزه
-  router.navigation(`/meal/${mealId}`);
-});
+      // هنا بقى اعمل اللي انت عايزه
+      this.#router.navigation(`/meal/${mealId}`, meal);
+    });
 
   }
 
